@@ -1,0 +1,5 @@
+rootProject.name='Kryptonite'
+include ':app'
+include ':multi-itemlistadapter'
+include ':annotations'
+include ':annotation-processor'

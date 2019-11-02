@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Kryptonite</string>
+    <string name="btn_txt_search">Search</string>
+    <string name="hint_currency">Currency</string>
+    <string name="hint_amount">Amount</string>
+    <string name="default_amount">1</string>
+</resources>
