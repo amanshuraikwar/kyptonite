@@ -76,3 +76,17 @@ class ErrorTextWatcher(private val til: TextInputLayout) : TextWatcher {
     }
 
 }
+
+fun <X, Y, Z> combine(l1: LiveData<X>,
+                      c1: (X) -> Z,
+                      l2: LiveData<Y>,
+                      c2: (Y) -> Z): LiveData<Z> {
+    val m = MediatorLiveData<Z>()
+    m.addSource(l1) {
+        m.value = c1.invoke(it)
+    }
+    m.addSource(l2) {
+        m.value = c2.invoke(it)
+    }
+    return m
+}

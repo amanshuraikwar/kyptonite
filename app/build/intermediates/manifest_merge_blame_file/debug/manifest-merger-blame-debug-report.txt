@@ -10,59 +10,65 @@
 9        android:targetSdkVersion="29" />
 9-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml
 10
-11    <application
-11-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:5:5-20:19
-12        android:name="io.github.amanshuraikwar.kryptonite.MainApplication"
-12-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:12:9-40
-13        android:allowBackup="true"
-13-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:6:9-35
-14        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-14-->[androidx.core:core:1.2.0-alpha02] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/aa8638561b10de6caefd760afc55d655/core-1.2.0-alpha02/AndroidManifest.xml:24:18-86
-15        android:debuggable="true"
-16        android:extractNativeLibs="false"
-17        android:icon="@mipmap/ic_launcher"
-17-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:7:9-43
-18        android:label="@string/app_name"
-18-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:8:9-41
-19        android:roundIcon="@mipmap/ic_launcher_round"
-19-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:9:9-54
-20        android:supportsRtl="true"
-20-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:10:9-35
-21        android:testOnly="true"
-22        android:theme="@style/AppTheme" >
-22-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:11:9-40
-23        <activity android:name="io.github.amanshuraikwar.kryptonite.ui.MainActivity" >
-23-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:13:9-19:20
-23-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:13:19-50
-24            <intent-filter>
-24-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:14:13-18:29
-25                <action android:name="android.intent.action.MAIN" />
-25-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:15:17-69
-25-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:15:25-66
-26
-27                <category android:name="android.intent.category.LAUNCHER" />
-27-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:17:17-77
-27-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:17:27-74
-28            </intent-filter>
-29        </activity>
-30
-31        <service
-31-->[androidx.room:room-runtime:2.1.0] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/011ce151040129a6ea6e0e0765691aaa/room-runtime-2.1.0/AndroidManifest.xml:25:9-27:40
-32            android:name="androidx.room.MultiInstanceInvalidationService"
-32-->[androidx.room:room-runtime:2.1.0] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/011ce151040129a6ea6e0e0765691aaa/room-runtime-2.1.0/AndroidManifest.xml:26:13-74
-33            android:exported="false" />
-33-->[androidx.room:room-runtime:2.1.0] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/011ce151040129a6ea6e0e0765691aaa/room-runtime-2.1.0/AndroidManifest.xml:27:13-37
-34
-35        <provider
-35-->[androidx.lifecycle:lifecycle-process:2.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/2caa87d64e59faf00d26ff56eb7345ba/jetified-lifecycle-process-2.1.0-beta01/AndroidManifest.xml:23:9-27:43
-36            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-36-->[androidx.lifecycle:lifecycle-process:2.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/2caa87d64e59faf00d26ff56eb7345ba/jetified-lifecycle-process-2.1.0-beta01/AndroidManifest.xml:24:13-79
-37            android:authorities="io.github.amanshuraikwar.kryptonite.lifecycle-process"
-37-->[androidx.lifecycle:lifecycle-process:2.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/2caa87d64e59faf00d26ff56eb7345ba/jetified-lifecycle-process-2.1.0-beta01/AndroidManifest.xml:25:13-69
-38            android:exported="false"
-38-->[androidx.lifecycle:lifecycle-process:2.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/2caa87d64e59faf00d26ff56eb7345ba/jetified-lifecycle-process-2.1.0-beta01/AndroidManifest.xml:26:13-37
-39            android:multiprocess="true" />
-39-->[androidx.lifecycle:lifecycle-process:2.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/2caa87d64e59faf00d26ff56eb7345ba/jetified-lifecycle-process-2.1.0-beta01/AndroidManifest.xml:27:13-40
-40    </application>
-41
-42</manifest>
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:5:5-66
+11-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:5:22-64
+12
+13    <application
+13-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:7:5-23:19
+14        android:name="io.github.amanshuraikwar.kryptonite.MainApplication"
+14-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:14:9-40
+15        android:allowBackup="true"
+15-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:8:9-35
+16        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+16-->[androidx.core:core:1.2.0-alpha02] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/aa8638561b10de6caefd760afc55d655/core-1.2.0-alpha02/AndroidManifest.xml:24:18-86
+17        android:debuggable="true"
+18        android:extractNativeLibs="false"
+19        android:icon="@mipmap/ic_launcher"
+19-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:9:9-43
+20        android:label="@string/app_name"
+20-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:10:9-41
+21        android:roundIcon="@mipmap/ic_launcher_round"
+21-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:11:9-54
+22        android:supportsRtl="true"
+22-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:12:9-35
+23        android:testOnly="true"
+24        android:theme="@style/AppTheme"
+24-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:13:9-40
+25        android:usesCleartextTraffic="true" >
+25-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:15:9-44
+26        <activity android:name="io.github.amanshuraikwar.kryptonite.ui.MainActivity" >
+26-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:16:9-22:20
+26-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:16:19-50
+27            <intent-filter>
+27-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:17:13-21:29
+28                <action android:name="android.intent.action.MAIN" />
+28-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:18:17-69
+28-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:18:25-66
+29
+30                <category android:name="android.intent.category.LAUNCHER" />
+30-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:20:17-77
+30-->/Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:20:27-74
+31            </intent-filter>
+32        </activity>
+33
+34        <service
+34-->[androidx.room:room-runtime:2.1.0] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/011ce151040129a6ea6e0e0765691aaa/room-runtime-2.1.0/AndroidManifest.xml:25:9-27:40
+35            android:name="androidx.room.MultiInstanceInvalidationService"
+35-->[androidx.room:room-runtime:2.1.0] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/011ce151040129a6ea6e0e0765691aaa/room-runtime-2.1.0/AndroidManifest.xml:26:13-74
+36            android:exported="false" />
+36-->[androidx.room:room-runtime:2.1.0] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/011ce151040129a6ea6e0e0765691aaa/room-runtime-2.1.0/AndroidManifest.xml:27:13-37
+37
+38        <provider
+38-->[androidx.lifecycle:lifecycle-process:2.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/2caa87d64e59faf00d26ff56eb7345ba/jetified-lifecycle-process-2.1.0-beta01/AndroidManifest.xml:23:9-27:43
+39            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+39-->[androidx.lifecycle:lifecycle-process:2.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/2caa87d64e59faf00d26ff56eb7345ba/jetified-lifecycle-process-2.1.0-beta01/AndroidManifest.xml:24:13-79
+40            android:authorities="io.github.amanshuraikwar.kryptonite.lifecycle-process"
+40-->[androidx.lifecycle:lifecycle-process:2.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/2caa87d64e59faf00d26ff56eb7345ba/jetified-lifecycle-process-2.1.0-beta01/AndroidManifest.xml:25:13-69
+41            android:exported="false"
+41-->[androidx.lifecycle:lifecycle-process:2.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/2caa87d64e59faf00d26ff56eb7345ba/jetified-lifecycle-process-2.1.0-beta01/AndroidManifest.xml:26:13-37
+42            android:multiprocess="true" />
+42-->[androidx.lifecycle:lifecycle-process:2.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/2caa87d64e59faf00d26ff56eb7345ba/jetified-lifecycle-process-2.1.0-beta01/AndroidManifest.xml:27:13-40
+43    </application>
+44
+45</manifest>

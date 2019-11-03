@@ -68,6 +68,10 @@
         "source": "/Users/amanshuraikwar/projects/Krptonite/app/src/main/res/layout/item_header.xml"
     },
     {
+        "merged": "/Users/amanshuraikwar/projects/Krptonite/app/build/intermediates/res/merged/debug/layout-land_activity_main.xml.flat",
+        "source": "/Users/amanshuraikwar/projects/Krptonite/app/src/main/res/layout-land/activity_main.xml"
+    },
+    {
         "merged": "/Users/amanshuraikwar/projects/Krptonite/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
         "source": "/Users/amanshuraikwar/projects/Krptonite/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
     },

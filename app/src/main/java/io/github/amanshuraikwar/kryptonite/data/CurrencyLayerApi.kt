@@ -1,22 +1,22 @@
 package io.github.amanshuraikwar.kryptonite.data
 
-import com.google.gson.Gson
 import com.google.gson.JsonObject
-import okhttp3.Request
+import io.github.amanshuraikwar.kryptonite.BuildConfig
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CurrencyLayerApi {
 
     @GET("list")
-    fun getAvailableCurrencies(): Call<ListResponse>
+    fun getAvailableCurrencies(
+        @Query("access_key") accessKey: String = BuildConfig.CURRENCY_LAYER_ACCESS_KEY
+    ): Call<ListResponse>
 
     @GET("live")
     fun getExchangeRates(
-        @Query("source") source: String
+        @Query("source") source: String,
+        @Query("access_key") accessKey: String = BuildConfig.CURRENCY_LAYER_ACCESS_KEY
     ): Call<LiveResponse>
 }
 

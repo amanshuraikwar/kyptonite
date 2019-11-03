@@ -249,17 +249,6 @@ class ListItemsProcessor: AbstractProcessor() {
                         .build()
                 )
 
-        /*
-        classBuilder.addFunction(
-            FunSpec.builder("bind")
-                .addModifiers(KModifier.PUBLIC)
-                .addParameter("listItem", variable.asType().asTypeName())
-                .addStatement("listItem.inflate(itemView)")
-                .returns(UNIT)
-                .build()
-        )
-         */
-
         return classBuilder.build()
     }
 }

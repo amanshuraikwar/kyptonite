@@ -1,5 +1,6 @@
 package io.github.amanshuraikwar.kryptonite.data.domain
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.github.amanshuraikwar.kryptonite.data.domain.result.Result
@@ -7,6 +8,9 @@ import io.github.amanshuraikwar.kryptonite.data.domain.result.Result
 /**
  * Executes business logic synchronously or asynchronously using a [Scheduler].
  */
+
+private const val TAG = "UseCase"
+
 abstract class UseCase<in P, R> {
     protected var taskScheduler: Scheduler = DefaultScheduler
 
@@ -25,12 +29,12 @@ abstract class UseCase<in P, R> {
                         result.postValue(Result.Success(useCaseResult))
                     }
                 } catch (e: Exception) {
-                    //Timber.e(e)
+                    Log.e(TAG, "invoke: ", e)
                     result.postValue(Result.Error(e))
                 }
             }
         } catch (e: Exception) {
-            //Timber.d(e)
+            Log.e(TAG, "invoke: ", e)
             result.postValue(Result.Error(e))
         }
     }

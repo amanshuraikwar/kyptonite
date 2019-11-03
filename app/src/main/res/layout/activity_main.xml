@@ -25,32 +25,28 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:id="@+id/currencyTil"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/currencyCv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/amountTil"
-        android:layout_margin="16dp"
-        android:hint="@string/hint_currency"
-        android:labelFor="@id/currencyTv">
+        android:layout_margin="@dimen/margin_normal"
+        app:strokeWidth="1dp"
+        app:strokeColor="?colorControlNormal"
+        app:cardElevation="0dp">
 
-        <AutoCompleteTextView
-            android:id="@+id/currencyTv"
+        <Spinner
+            android:id="@+id/currencySpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceHeadline5"
-            android:editable="false"
-            tools:ignore="Deprecated" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content" />
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.core.widget.ContentLoadingProgressBar
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:id="@+id/pb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/currencyTil"
+        app:layout_constraintTop_toBottomOf="@id/currencyCv"
         android:layout_marginStart="@dimen/margin_normal"
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginTop="@dimen/margin_small"
@@ -67,12 +63,25 @@
         app:strokeColor="?colorControlNormal"
         app:cardElevation="0dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/itemsRv"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="128dp"
-            android:clipToPadding="false"/>
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/info_empty"
+                android:textAppearance="?textAppearanceOverline"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/itemsRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="128dp"
+                android:clipToPadding="false"/>
+
+        </FrameLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

@@ -61,7 +61,7 @@ class CurrencyRepositoryImpl @Inject constructor(
 
         if (localExchangeRates.isEmpty()) {
 
-            return fetchAndStoreExchangeRates(source)
+            return fetchAndStoreExchangeRates(source, curDateTime)
                 .map {
                     CurrencyExchange(
                         it.currencyCode,
@@ -84,7 +84,7 @@ class CurrencyRepositoryImpl @Inject constructor(
 
                 exchangeRateDao.deleteAll(localExchangeRates)
 
-                return fetchAndStoreExchangeRates(source)
+                return fetchAndStoreExchangeRates(source, curDateTime)
                     .map {
                         CurrencyExchange(
                             it.currencyCode,
@@ -111,7 +111,10 @@ class CurrencyRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun fetchAndStoreExchangeRates(source: String): List<ExchangeRateEntity> {
+    private fun fetchAndStoreExchangeRates(
+        source: String,
+        curDateTime: OffsetDateTime
+    ): List<ExchangeRateEntity> {
 
         val fetchedExchangeRates: List<ExchangeRateEntity> =
             api
@@ -121,14 +124,10 @@ class CurrencyRepositoryImpl @Inject constructor(
                     val exchangeList = response.quotes.asExchangeList()
                     exchangeList.map {
                         ExchangeRateEntity(
-                            null,
-                            it.sourceCode,
-                            it.code,
-                            it.rate,
-                            OffsetDateTime.ofInstant(
-                                Instant.ofEpochMilli(response.timestamp),
-                                ZoneId.systemDefault()
-                            )
+                            sourceCurrencyCode = it.sourceCode,
+                            currencyCode = it.code,
+                            exchangeRate = it.rate,
+                            lastUpdated = curDateTime
                         )
                     }
                 }

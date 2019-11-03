@@ -12,7 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://apilayer.net/api/"
+private const val BASE_URL = "http://apilayer.net/api/"
 
 @Module
 class DataModule {
@@ -33,8 +33,8 @@ class DataModule {
                 .client(okHttpClient)
                 .build()
 
-        //return retrofit.create(CurrencyLayerApi::class.java)
-        return FakeApi()
+        return retrofit.create(CurrencyLayerApi::class.java)
+//        return FakeApi()
     }
 
     @Provides

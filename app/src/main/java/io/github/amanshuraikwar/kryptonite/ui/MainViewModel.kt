@@ -2,6 +2,8 @@ package io.github.amanshuraikwar.kryptonite.ui
 
 import androidx.lifecycle.*
 import io.github.amanshuraikwar.kryptonite.asEvent
+import io.github.amanshuraikwar.kryptonite.combine
+import io.github.amanshuraikwar.kryptonite.data.ApiException
 import io.github.amanshuraikwar.kryptonite.data.Currency
 import io.github.amanshuraikwar.kryptonite.data.CurrencyExchange
 import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetExchangeRatesUseCase
@@ -21,13 +23,24 @@ class MainViewModel @Inject constructor(
     val loading = _loading.map { it }.asEvent()
 
     private val _error = MutableLiveData<Exception>()
+    private val _showSnackBar = MutableLiveData<String>()
+    val showSnackBar =
+        combine(
+            _error,
+            {
+                if (it is ApiException) "${it.code} : ${it.message}"
+                else "${it.message}"
+            },
+            _showSnackBar,
+            { x -> x }
+        ).asEvent()
 
     private val _supportedCurrenciesResult = MutableLiveData<Result<List<Currency>>>()
     val displaySupportedCurrencies =
-        _supportedCurrenciesResult.handleResult(_error, _loading).asEvent()
+        _supportedCurrenciesResult.handleResult(_error, _loading)
 
     private val _exchangeRateResult = MutableLiveData<Result<List<CurrencyExchange>>>()
-    val displayExchangeRates = _exchangeRateResult.handleResult(_error, _loading).asEvent()
+    val displayExchangeRates = _exchangeRateResult.handleResult(_error, _loading)
 
     init {
         getSupportedCurrencies()

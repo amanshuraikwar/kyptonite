@@ -1422,8 +1422,8 @@ id container
 id content
 id contentPanel
 id coordinator
-id currencyTil
-id currencyTv
+id currencyCv
+id currencySpinner
 id custom
 id customPanel
 id cut
@@ -1471,6 +1471,7 @@ id info
 id invisible
 id italic
 id item_touch_helper_previous_elevation
+id itemsCv
 id itemsRv
 id labeled
 id largeLabel
@@ -1772,6 +1773,7 @@ string hide_bottom_view_on_scroll_behavior
 string hint_amount
 string hint_currency
 string icon_content_description
+string info_empty
 string mtrl_badge_numberless_content_description
 string mtrl_chip_close_icon_content_description
 string mtrl_exceed_max_badge_number_suffix

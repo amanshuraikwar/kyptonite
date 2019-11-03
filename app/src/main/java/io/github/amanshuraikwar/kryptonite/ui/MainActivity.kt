@@ -1,9 +1,12 @@
 package io.github.amanshuraikwar.kryptonite.ui
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerAppCompatActivity
@@ -19,6 +22,7 @@ import io.github.amanshuraikwar.multiitemlistadapter.MultiItemAdapter
 import io.github.amanshuraikwar.multiitemlistadapter.RecyclerViewListItem
 import io.github.amanshuraikwar.multiitemlistadapter.annotations.ListItem
 import kotlinx.android.synthetic.main.activity_main.*
+import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -33,15 +37,13 @@ class MainActivity : DaggerAppCompatActivity() {
 
         viewModel.displaySupportedCurrencies.observe(
             this,
-            EventObserver {
+            Observer {
 
                 val adapter = ArrayAdapter<String>(
                     this, R.layout.item_drop_down, it.map { it.code }
                 )
 
-                currencyTv.setAdapter(adapter)
-
-                showToast(it.toString())
+                currencySpinner.adapter = adapter
             }
         )
 
@@ -50,22 +52,39 @@ class MainActivity : DaggerAppCompatActivity() {
             EventObserver {
                 pb.visibility = if (it) View.VISIBLE else View.GONE
                 amountEt.isEnabled = !it
-                currencyTv.isEnabled = !it
+                currencySpinner.isEnabled = !it
             }
         )
 
         viewModel.displayExchangeRates.observe(
             this,
-            EventObserver {
+            Observer {
                 itemsRv.adapter = MultiItemAdapter(
                     this,
                     RecyclerViewTypeFactoryGenerated(),
                     mutableListOf<RecyclerViewListItem>().apply {
+                        val amount = amountEt.text.toString().toFloat()
                         add(HeaderListItem("Exchange Rates"))
-                        addAll(it.map { ExchangeRateListItem(it) as RecyclerViewListItem })
+                        add(
+                            HeaderListItem(
+                                "Last Updated: ${it[0].lastUpdated.format(DateTimeFormatter.ofPattern("hh:mm a, dd-MMMM-yyyy"))}"
+                            )
+                        )
+                        addAll(
+                            it.map {
+                                ExchangeRateListItem(it, amount) as RecyclerViewListItem
+                            }
+                        )
                         add(HeaderListItem("That's All Folks"))
                     }
                 )
+            }
+        )
+
+        viewModel.showSnackBar.observe(
+            this,
+            EventObserver {
+                showToast(it)
             }
         )
 
@@ -78,19 +97,15 @@ class MainActivity : DaggerAppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (currencyTv.text.isNullOrEmpty()) {
-                currencyTil.error = "Select a currency."
-                return@setOnClickListener
-            }
+            val selectedCurrency = (currencySpinner.selectedView as TextView).text.toString()
 
             viewModel.searchExchangeRates(
                 amountEt.text.toString(),
-                currencyTv.text.toString()
+                selectedCurrency
             )
         }
 
         amountEt.addErrorTextWatcher(amountTil)
-        currencyTv.addErrorTextWatcher(currencyTil)
     }
 
     private fun showToast(msg: String) {

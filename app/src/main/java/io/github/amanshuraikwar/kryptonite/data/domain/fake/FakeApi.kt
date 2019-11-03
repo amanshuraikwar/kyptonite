@@ -11,7 +11,9 @@ import retrofit2.Response
 
 class FakeApi : CurrencyLayerApi {
 
-    override fun getAvailableCurrencies(): Call<ListResponse> {
+    override fun getAvailableCurrencies(
+        accessKey: String
+    ): Call<ListResponse> {
         Thread.sleep(5000)
         return FakeCall(
             ListResponse(
@@ -22,14 +24,15 @@ class FakeApi : CurrencyLayerApi {
                 JsonParser().parse(
                     "{\n" +
                         "        \"AED\": \"United Arab Emirates Dirham\",\n" +
-                        "        \"AFN\": \"Afghan Afghani\"\n" +
+                        "        \"AFN\": \"Afghan Afghani\",\n" +
+                        "        \"USD\": \"United States Dollar\"\n" +
                         "}"
                 ).asJsonObject
             )
         )
     }
 
-    override fun getExchangeRates(source: String): Call<LiveResponse> {
+    override fun getExchangeRates(source: String, accessKey: String): Call<LiveResponse> {
         Thread.sleep(5000)
         return FakeCall(
             LiveResponse(

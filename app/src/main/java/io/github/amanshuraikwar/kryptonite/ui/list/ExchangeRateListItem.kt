@@ -9,9 +9,14 @@ import io.github.amanshuraikwar.multiitemlistadapter.RecyclerViewListItem
 import io.github.amanshuraikwar.multiitemlistadapter.annotations.ListItem
 
 @ListItem(layoutResId = R.layout.item_exchange_rate)
-class ExchangeRateListItem(private val currencyExchange: CurrencyExchange) : RecyclerViewListItem {
+class ExchangeRateListItem(private val currencyExchange: CurrencyExchange,
+                           private val amount: Float) : RecyclerViewListItem {
     override fun bind(view: View, activity: FragmentActivity) {
         view.findViewById<TextView>(R.id.tv).text =
-            String.format("%s : %.2f", currencyExchange.code, currencyExchange.exchangeRate)
+            String.format(
+                "%s : %.2f",
+                currencyExchange.code,
+                amount * currencyExchange.exchangeRate
+            )
     }
 }

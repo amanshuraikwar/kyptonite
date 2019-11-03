@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-22:12
-INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-22:12
-INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-22:12
-INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-22:12
+ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-25:12
 MERGED from [:multi-itemlistadapter] /Users/amanshuraikwar/projects/Krptonite/multi-itemlistadapter/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.core:core-ktx:1.2.0-alpha02] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/5d39b60d947f7ab9b66b26019e6d011b/jetified-core-ktx-1.2.0-alpha02/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.fragment:fragment-ktx:1.1.0-beta01] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/aa53ff45041d439489ac22f1dfb4706b/jetified-fragment-ktx-1.1.0-beta01/AndroidManifest.xml:17:1-24:12
@@ -67,25 +67,29 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/amanshuraikwar/.gr
 MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/03d826989f03e817184a9b707047e703/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/b1af4c35ae4365857433aad3bb0fd679/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/a20bc41c385b4831c58cacb48802aa1a/print-1.0.0/AndroidManifest.xml:17:1-22:12
-INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-22:12
-INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-22:12
-INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-25:12
 	package
 		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:3:5-50
 		INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-22:12
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-25:12
 		INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-22:12
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:1-25:12
 		INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:5:5-66
+	android:name
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:5:22-64
 application
-ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:5:5-20:19
+ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:7:5-23:19
 MERGED from [com.google.android.material:material:1.1.0-alpha07] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/e3fd37b027ffc530f2a66b5c6cfbe362/material-1.1.0-alpha07/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.1.0-alpha07] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/e3fd37b027ffc530f2a66b5c6cfbe362/material-1.1.0-alpha07/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/eeefdedf0e4dc64e3ea08d9a099d27d3/constraintlayout-1.1.3/AndroidManifest.xml:9:5-20
@@ -107,33 +111,35 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /Users
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.2.0-alpha02] /Users/amanshuraikwar/.gradle/caches/transforms-2/files-2.1/aa8638561b10de6caefd760afc55d655/core-1.2.0-alpha02/AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:10:9-35
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:12:9-35
 	android:label
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:8:9-41
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:10:9-41
 	android:roundIcon
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:9:9-54
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:11:9-54
 	android:icon
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:7:9-43
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:9:9-43
 	android:allowBackup
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:6:9-35
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:8:9-35
 	android:theme
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:11:9-40
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:13:9-40
+	android:usesCleartextTraffic
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:15:9-44
 	android:name
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:12:9-40
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:14:9-40
 activity#io.github.amanshuraikwar.kryptonite.ui.MainActivity
-ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:13:9-19:20
+ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:16:9-22:20
 	android:name
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:13:19-50
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:16:19-50
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:14:13-18:29
+ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:17:13-21:29
 action#android.intent.action.MAIN
-ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:15:17-69
+ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:18:17-69
 	android:name
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:15:25-66
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:18:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:17:17-77
+ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:20:17-77
 	android:name
-		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:17:27-74
+		ADDED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml:20:27-74
 uses-sdk
 INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/amanshuraikwar/projects/Krptonite/app/src/main/AndroidManifest.xml
