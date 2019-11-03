@@ -11,7 +11,7 @@ import androidx.room.TypeConverters
  */
 @Database(
     entities = [AvailableCurrencyEntity::class, ExchangeRateEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false)
 @TypeConverters(io.github.amanshuraikwar.kryptonite.data.db.TypeConverters::class)
 abstract class AppDatabase : RoomDatabase() {

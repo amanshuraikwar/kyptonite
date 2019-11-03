@@ -1,7 +1,6 @@
 package io.github.amanshuraikwar.kryptonite.ui
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
@@ -9,10 +8,10 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.amanshuraikwar.kryptonite.R
 import io.github.amanshuraikwar.kryptonite.addErrorTextWatcher
-import io.github.amanshuraikwar.kryptonite.data.Currency
 import io.github.amanshuraikwar.kryptonite.data.domain.result.EventObserver
 import io.github.amanshuraikwar.kryptonite.ui.list.ExchangeRateListItem
 import io.github.amanshuraikwar.kryptonite.ui.list.HeaderListItem
@@ -20,7 +19,6 @@ import io.github.amanshuraikwar.kryptonite.ui.list.RecyclerViewTypeFactoryGenera
 import io.github.amanshuraikwar.kryptonite.viewModelProvider
 import io.github.amanshuraikwar.multiitemlistadapter.MultiItemAdapter
 import io.github.amanshuraikwar.multiitemlistadapter.RecyclerViewListItem
-import io.github.amanshuraikwar.multiitemlistadapter.annotations.ListItem
 import kotlinx.android.synthetic.main.activity_main.*
 import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
@@ -29,11 +27,13 @@ class MainActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val viewModel: MainViewModel = viewModelProvider(viewModelFactory)
+        viewModel = viewModelProvider(viewModelFactory)
 
         viewModel.displaySupportedCurrencies.observe(
             this,
@@ -84,7 +84,11 @@ class MainActivity : DaggerAppCompatActivity() {
         viewModel.showSnackBar.observe(
             this,
             EventObserver {
-                showToast(it)
+                if (currencySpinner.adapter == null) {
+                    showRetrySnackbar(it)
+                } else {
+                    showSnackbar(it)
+                }
             }
         )
 
@@ -106,9 +110,27 @@ class MainActivity : DaggerAppCompatActivity() {
         }
 
         amountEt.addErrorTextWatcher(amountTil)
+
+        // if activity was recreated
+        // and currencies were not loaded yet
+        // load them again
+        if (savedInstanceState != null) {
+            if (currencySpinner.adapter == null) {
+                viewModel.getSupportedCurrencies()
+            }
+        }
     }
 
-    private fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    private fun showSnackbar(msg: String) {
+        Snackbar.make(parentCl, msg, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun showRetrySnackbar(msg: String) {
+        Snackbar
+            .make(parentCl, msg, Snackbar.LENGTH_INDEFINITE)
+            .apply {
+                setAction("Retry") { viewModel.getSupportedCurrencies() }
+            }
+            .show()
     }
 }

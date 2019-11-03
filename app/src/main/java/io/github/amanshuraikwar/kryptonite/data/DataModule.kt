@@ -4,7 +4,6 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.github.amanshuraikwar.kryptonite.data.db.AppDatabase
-import io.github.amanshuraikwar.kryptonite.data.domain.fake.FakeApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -14,6 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val BASE_URL = "http://apilayer.net/api/"
 
+/**
+ * Provides data related dependencies.
+ */
 @Module
 class DataModule {
 
@@ -34,7 +36,6 @@ class DataModule {
                 .build()
 
         return retrofit.create(CurrencyLayerApi::class.java)
-//        return FakeApi()
     }
 
     @Provides

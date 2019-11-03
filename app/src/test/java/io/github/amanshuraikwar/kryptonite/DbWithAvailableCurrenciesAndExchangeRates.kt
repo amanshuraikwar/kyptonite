@@ -50,4 +50,8 @@ class FakeExchangeRateDao(
     override fun deleteAll(exchangeRateEntities: List<ExchangeRateEntity>) {
 
     }
+
+    override fun deleteAllFor(source: String) {
+
+    }
 }

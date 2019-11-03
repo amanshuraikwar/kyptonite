@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/itemsCv"
+        app:layout_constraintEnd_toStartOf="@id/parentCl"
         android:layout_margin="16dp"
         android:hint="@string/hint_amount">
 
@@ -57,51 +58,55 @@
         android:indeterminate="true"
         android:visibility="gone" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/itemsCv"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/parentCl"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/amountTil"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/margin_normal"
-        app:strokeWidth="1dp"
-        app:strokeColor="?colorControlNormal"
-        app:cardElevation="0dp">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <FrameLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/itemsCv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_normal"
+            app:strokeWidth="1dp"
+            app:strokeColor="?colorControlNormal"
+            app:cardElevation="0dp">
 
-            <TextView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/info_empty"
-                android:textAppearance="?textAppearanceOverline"/>
+                android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/itemsRv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="128dp"
-                android:clipToPadding="false"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/info_empty"
+                    android:textAppearance="?textAppearanceOverline"/>
 
-        </FrameLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/itemsRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="128dp"
+                    android:clipToPadding="false"/>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/searchEfab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/itemsCv"
-        app:layout_constraintEnd_toEndOf="@id/itemsCv"
-        android:layout_margin="@dimen/margin_large"
-        android:gravity="center"
-        app:icon="@drawable/ic_round_search_24"
-        app:backgroundTint="#fff"
-        android:text="@string/btn_txt_search" />
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/searchEfab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large"
+            android:layout_gravity="center_horizontal|bottom"
+            app:icon="@drawable/ic_round_search_24"
+            app:backgroundTint="#fff"
+            android:text="@string/btn_txt_search" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

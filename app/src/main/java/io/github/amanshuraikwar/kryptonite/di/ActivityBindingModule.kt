@@ -5,6 +5,9 @@ import dagger.android.ContributesAndroidInjector
 import io.github.amanshuraikwar.kryptonite.ui.MainActivity
 import io.github.amanshuraikwar.kryptonite.ui.MainModule
 
+/**
+ * Binds modules to dagger activities.
+ */
 @Module
 @Suppress("UNUSED")
 abstract class ActivityBindingModule {

@@ -2,19 +2,23 @@ package io.github.amanshuraikwar.kryptonite.data.domain.fake;
 
 import java.lang.System;
 
-@kotlin.Metadata(mv = {1, 1, 16}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000$\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\u0018\u00002\u00020\u0001:\u0001\u000bB\u0005\u00a2\u0006\u0002\u0010\u0002J\u0016\u0010\u0003\u001a\b\u0012\u0004\u0012\u00020\u00050\u00042\u0006\u0010\u0006\u001a\u00020\u0007H\u0016J\u001e\u0010\b\u001a\b\u0012\u0004\u0012\u00020\t0\u00042\u0006\u0010\n\u001a\u00020\u00072\u0006\u0010\u0006\u001a\u00020\u0007H\u0016\u00a8\u0006\f"}, d2 = {"Lio/github/amanshuraikwar/kryptonite/data/domain/fake/FakeApi;", "Lio/github/amanshuraikwar/kryptonite/data/CurrencyLayerApi;", "()V", "getAvailableCurrencies", "Lretrofit2/Call;", "Lio/github/amanshuraikwar/kryptonite/data/ListResponse;", "accessKey", "", "getExchangeRates", "Lio/github/amanshuraikwar/kryptonite/data/LiveResponse;", "source", "FakeCall", "app_debug"})
+/**
+ * Fake api to simulate the CurrencyLayerApi
+ * as we have limited number of hits per month on a free subscription.
+ */
+@kotlin.Metadata(mv = {1, 1, 16}, bv = {1, 0, 3}, k = 1, d1 = {"\u0000$\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\u0018\u00002\u00020\u0001:\u0001\u000bB\u0005\u00a2\u0006\u0002\u0010\u0002J\u0016\u0010\u0003\u001a\b\u0012\u0004\u0012\u00020\u00050\u00042\u0006\u0010\u0006\u001a\u00020\u0007H\u0016J\u001e\u0010\b\u001a\b\u0012\u0004\u0012\u00020\t0\u00042\u0006\u0010\n\u001a\u00020\u00072\u0006\u0010\u0006\u001a\u00020\u0007H\u0016\u00a8\u0006\f"}, d2 = {"Lio/github/amanshuraikwar/kryptonite/data/domain/fake/FakeApi;", "Lio/github/amanshuraikwar/kryptonite/data/CurrencyLayerApi;", "()V", "getAvailableCurrencies", "Lretrofit2/Call;", "Lio/github/amanshuraikwar/kryptonite/data/domain/ListResponse;", "accessKey", "", "getExchangeRates", "Lio/github/amanshuraikwar/kryptonite/data/domain/LiveResponse;", "source", "FakeCall", "app_debug"})
 public final class FakeApi implements io.github.amanshuraikwar.kryptonite.data.CurrencyLayerApi {
     
     @org.jetbrains.annotations.NotNull()
     @java.lang.Override()
-    public retrofit2.Call<io.github.amanshuraikwar.kryptonite.data.ListResponse> getAvailableCurrencies(@org.jetbrains.annotations.NotNull()
+    public retrofit2.Call<io.github.amanshuraikwar.kryptonite.data.domain.ListResponse> getAvailableCurrencies(@org.jetbrains.annotations.NotNull()
     java.lang.String accessKey) {
         return null;
     }
     
     @org.jetbrains.annotations.NotNull()
     @java.lang.Override()
-    public retrofit2.Call<io.github.amanshuraikwar.kryptonite.data.LiveResponse> getExchangeRates(@org.jetbrains.annotations.NotNull()
+    public retrofit2.Call<io.github.amanshuraikwar.kryptonite.data.domain.LiveResponse> getExchangeRates(@org.jetbrains.annotations.NotNull()
     java.lang.String source, @org.jetbrains.annotations.NotNull()
     java.lang.String accessKey) {
         return null;

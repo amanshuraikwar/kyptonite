@@ -1,19 +1,46 @@
 package io.github.amanshuraikwar.kryptonite.data
 
-import com.google.gson.JsonObject
+import io.github.amanshuraikwar.kryptonite.*
 import io.github.amanshuraikwar.kryptonite.data.db.*
-import org.threeten.bp.Instant
+import io.github.amanshuraikwar.kryptonite.data.domain.Currency
+import io.github.amanshuraikwar.kryptonite.data.domain.CurrencyExchange
 import org.threeten.bp.OffsetDateTime
-import org.threeten.bp.ZoneId
 import org.threeten.bp.temporal.ChronoUnit
-import retrofit2.Response
 import java.lang.Exception
 import javax.inject.Inject
 
 interface CurrencyRepository {
-    fun getSupportedCurrencies(): List<Currency>
+
+    /**
+     * Get all the supported currencies, remote + local.
+     */
+    fun getAvailableCurrencies(): List<Currency>
+
+    /**
+     * Get exchange rates for the source currency.
+     */
     fun getExchangeRates(source: String): List<CurrencyExchange>
 }
+
+//region Local only supported currencies
+
+// todo: can be moved to local DB
+
+private val LOCAL_ONLY_SUPPORTED_CURRENCY_CODES = setOf("SSP")
+
+private val LOCAL_ONLY_SUPPORTED_CURRENCIES = listOf(
+    Currency("SSP", "South Sudanese pound")
+)
+
+// 1 * Key = Value USD
+// For eg: 1 SSP = 0.0076769538 USD
+private val LOCAL_ONLY_EXCHANGE_RATES = mapOf(Pair("SSP", 0.0076769538f))
+
+//endregion
+
+private const val EXCHANGE_RATE_EXPIRY_TIME = 30 // Minutes
+
+private const val MEDIATOR_CURRENCY = "USD"
 
 class CurrencyRepositoryImpl @Inject constructor(
     private val api: CurrencyLayerApi,
@@ -22,20 +49,34 @@ class CurrencyRepositoryImpl @Inject constructor(
     private val exchangeRateDao: ExchangeRateDao = appDatabase.exchangeRateDao()
 ) : CurrencyRepository {
 
-    override fun getSupportedCurrencies(): List<Currency> {
+    override fun getAvailableCurrencies(): List<Currency> {
 
         val localAvailableCurrencies = availableCurrencyDao.getAll()
 
+        // fetch from remote only if not available locally
+        // todo: what if the supported currencies change?
+
         if (localAvailableCurrencies.isEmpty()) {
 
-            val currencies: List<Currency> =
+            val currencies = LOCAL_ONLY_SUPPORTED_CURRENCIES.toMutableList()
+
+            currencies.addAll(
                 api
                     .getAvailableCurrencies()
                     .execute()
-                    .data { it.currencies.asCurrencyList() }
+                    .data {
+                        it.currencies.asCurrencyList()
+                    }
+            )
 
             availableCurrencyDao.insertAll(
-                currencies.map { AvailableCurrencyEntity(it.code, it.name) }
+                mutableListOf<AvailableCurrencyEntity>().apply {
+                    addAll(
+                        currencies.map {
+                            AvailableCurrencyEntity(it.code, it.name)
+                        }
+                    )
+                }
             )
 
             return currencies
@@ -47,70 +88,89 @@ class CurrencyRepositoryImpl @Inject constructor(
 
     override fun getExchangeRates(source: String): List<CurrencyExchange> {
 
+        // fetch available currencies
+        // throw exception if none available
+
         val localAvailableCurrencies = availableCurrencyDao.getAll()
 
         if (localAvailableCurrencies.isEmpty()) {
-            throw Exception("Local available currency is empty!")
+            throw InvalidDbStateException("Local available currencies is empty.")
         }
 
         val currencyCodeNameMap =
             localAvailableCurrencies.groupBy { it.code }.mapValues { it.value[0].name }
 
-        val localExchangeRates = exchangeRateDao.getFor(source)
-        val curDateTime = OffsetDateTime.now()
+        // check if currency is available
 
-        if (localExchangeRates.isEmpty()) {
+        if (!currencyCodeNameMap.containsKey(source)) {
+            throw InvalidDbStateException("Invalid currency $source not supported.")
+        }
 
-            return fetchAndStoreExchangeRates(source, curDateTime)
-                .map {
-                    CurrencyExchange(
-                        it.currencyCode,
-                        currencyCodeNameMap[it.currencyCode]
-                            ?: throw Exception("Invalid Currency ${it.currencyCode} not available."),
-                        it.sourceCurrencyCode,
-                        it.exchangeRate,
-                        it.lastUpdated
+        // check if the source currency is supported local only
+
+        if (LOCAL_ONLY_SUPPORTED_CURRENCY_CODES.contains(source)) {
+
+            val sourceToUsdExchangeRate =
+                LOCAL_ONLY_EXCHANGE_RATES[source]
+                    ?: throw InvalidDbStateException(
+                        "Exchange rate for $source not available locally!"
                     )
-                }
+
+            // get exchange rate for MEDIATOR_CURRENCY instead (recursively)
+            // and multiply rates accordingly
+
+            // todo: what if MEDIATOR_CURRENCY is only available locally
+            //  or not available at all?
+
+            return getExchangeRates(MEDIATOR_CURRENCY).map {
+                it.convert(source) { rate -> rate * sourceToUsdExchangeRate }
+            }
 
         } else {
 
-            val minutesDiff =
-                localExchangeRates[0]
-                    .lastUpdated
-                    .until(curDateTime, ChronoUnit.MINUTES)
+            val localExchangeRates = exchangeRateDao.getFor(source)
+            val curDateTime = OffsetDateTime.now()
 
-            if (minutesDiff > 30) {
+            // check if exchange rates are available locally
 
-                exchangeRateDao.deleteAll(localExchangeRates)
+            if (localExchangeRates.isEmpty()) {
 
                 return fetchAndStoreExchangeRates(source, curDateTime)
                     .map {
-                        CurrencyExchange(
-                            it.currencyCode,
-                            currencyCodeNameMap[it.currencyCode]
-                                ?: throw Exception("Invalid Currency."),
-                            it.sourceCurrencyCode,
-                            it.exchangeRate,
-                            it.lastUpdated
-                        )
+                        it.asCurrencyExchange(currencyCodeNameMap)
                     }
 
             } else {
-                return localExchangeRates.map {
-                    CurrencyExchange(
-                        it.currencyCode,
-                        currencyCodeNameMap[it.currencyCode]
-                            ?: throw Exception("Invalid Currency."),
-                        it.sourceCurrencyCode,
-                        it.exchangeRate,
-                        it.lastUpdated
-                    )
+
+                // check if the local exchange rates are within the expiry time
+
+                val minutesDiff =
+                    localExchangeRates[0]
+                        .lastUpdated
+                        .until(curDateTime, ChronoUnit.MINUTES)
+
+                return if (minutesDiff > EXCHANGE_RATE_EXPIRY_TIME) {
+
+                    // delete older exchange rates
+                    exchangeRateDao.deleteAll(localExchangeRates)
+
+                    fetchAndStoreExchangeRates(source, curDateTime)
+                        .map {
+                            it.asCurrencyExchange(currencyCodeNameMap)
+                        }
+
+                } else {
+                    localExchangeRates.map {
+                        it.asCurrencyExchange(currencyCodeNameMap)
+                    }
                 }
             }
         }
     }
 
+    /**
+     * Fetches exchange rated from remote and stores them locally while returning the same.
+     */
     private fun fetchAndStoreExchangeRates(
         source: String,
         curDateTime: OffsetDateTime
@@ -138,112 +198,11 @@ class CurrencyRepositoryImpl @Inject constructor(
     }
 }
 
-fun JsonObject.asCurrencyList(): List<Currency> {
-    return this.entrySet().map {
-        Currency(
-            it.key,
-            it.value.asString
-        )
-    }
-}
-
-fun JsonObject.asExchangeList(): List<Exchange> {
-    return this.entrySet().map {
-        Exchange(
-            it.key.substring(0..2),
-            it.key.substring(3..5),
-            it.value.asFloat
-        )
-    }
-}
-
-inline fun <T : BaseApiResponse, reified D> Response<T>.data(map: (T) -> D): D {
-    if (this.isSuccessful) {
-        this.body()?.let {
-            if (it.success) {
-                return map.invoke(it)
-            } else {
-                throw ApiException(
-                    it.error?.code ?: 333, it.error?.info ?: "Something went wrong!"
-                )
-            }
-        } ?: throw ApiException()
-    } else {
-        throw ApiException()
-    }
-}
+class InvalidDbStateException(
+    msg: String = "Invalid local db!"
+) : Exception(msg)
 
 class ApiException(
     val code: Int = 333,
     msg: String = "Something went wrong!"
 ) : Exception(msg)
-
-open class Currency(
-    val code: String,
-    val name: String
-) {
-    override fun toString(): String {
-        return "Currency(code='$code', name='$name')"
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is Currency) return false
-
-        if (code != other.code) return false
-        if (name != other.name) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = code.hashCode()
-        result = 31 * result + name.hashCode()
-        return result
-    }
-
-
-}
-
-class Exchange(
-    val sourceCode: String,
-    val code: String,
-    val rate: Float
-)
-
-class CurrencyExchange(
-    code: String,
-    name: String,
-    val source: String,
-    val exchangeRate: Float,
-    val lastUpdated: OffsetDateTime
-) : Currency(
-    code,
-    name
-) {
-    override fun toString(): String {
-        return "CurrencyExchange(source='$source', exchangeRate=$exchangeRate, lastUpdated=$lastUpdated) ${super.toString()}"
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is CurrencyExchange) return false
-        if (!super.equals(other)) return false
-
-        if (source != other.source) return false
-        if (exchangeRate != other.exchangeRate) return false
-        //if (lastUpdated != other.lastUpdated) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = super.hashCode()
-        result = 31 * result + source.hashCode()
-        result = 31 * result + exchangeRate.hashCode()
-        //result = 31 * result + lastUpdated.hashCode()
-        return result
-    }
-
-
-}

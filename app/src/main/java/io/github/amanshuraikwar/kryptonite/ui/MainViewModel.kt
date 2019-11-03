@@ -4,10 +4,10 @@ import androidx.lifecycle.*
 import io.github.amanshuraikwar.kryptonite.asEvent
 import io.github.amanshuraikwar.kryptonite.combine
 import io.github.amanshuraikwar.kryptonite.data.ApiException
-import io.github.amanshuraikwar.kryptonite.data.Currency
-import io.github.amanshuraikwar.kryptonite.data.CurrencyExchange
+import io.github.amanshuraikwar.kryptonite.data.domain.Currency
+import io.github.amanshuraikwar.kryptonite.data.domain.CurrencyExchange
 import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetExchangeRatesUseCase
-import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetSupportedCurrenciesUseCase
+import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetAvailableCurrenciesUseCase
 import java.lang.Exception
 import javax.inject.Inject
 import io.github.amanshuraikwar.kryptonite.data.domain.result.Result
@@ -15,7 +15,7 @@ import io.github.amanshuraikwar.kryptonite.handleResult
 
 
 class MainViewModel @Inject constructor(
-    private val getSupportedCurrenciesUseCase: GetSupportedCurrenciesUseCase,
+    private val getAvailableCurrenciesUseCase: GetAvailableCurrenciesUseCase,
     private val getExchangeRatesUseCase: GetExchangeRatesUseCase
 ) : ViewModel() {
 
@@ -47,7 +47,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun getSupportedCurrencies() {
-        getSupportedCurrenciesUseCase(Unit, _supportedCurrenciesResult)
+        getAvailableCurrenciesUseCase(Unit, _supportedCurrenciesResult)
     }
 
     fun searchExchangeRates(amount: String, currencyCode: String) {

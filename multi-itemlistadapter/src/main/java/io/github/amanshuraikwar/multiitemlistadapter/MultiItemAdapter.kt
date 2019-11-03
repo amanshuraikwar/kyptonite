@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package io.github.amanshuraikwar.multiitemlistadapter
 
 import android.view.LayoutInflater

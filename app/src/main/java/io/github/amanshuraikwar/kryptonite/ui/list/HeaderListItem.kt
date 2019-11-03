@@ -4,10 +4,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import io.github.amanshuraikwar.kryptonite.R
-import io.github.amanshuraikwar.kryptonite.data.CurrencyExchange
 import io.github.amanshuraikwar.multiitemlistadapter.RecyclerViewListItem
 import io.github.amanshuraikwar.multiitemlistadapter.annotations.ListItem
 
+/**
+ * Displays header in a recycler view.
+ */
 @ListItem(layoutResId = R.layout.item_header)
 class HeaderListItem(private val heading: String) : RecyclerViewListItem {
     override fun bind(view: View, activity: FragmentActivity) {

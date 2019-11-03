@@ -19,10 +19,10 @@ import io.github.amanshuraikwar.kryptonite.data.DataModule_ProvidesAppDatabaseFa
 import io.github.amanshuraikwar.kryptonite.data.DataModule_ProvidesCurrencyLayerApiFactory;
 import io.github.amanshuraikwar.kryptonite.data.DataModule_ProvidesCurrencyRepositoryFactory;
 import io.github.amanshuraikwar.kryptonite.data.db.AppDatabase;
+import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetAvailableCurrenciesUseCase;
+import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetAvailableCurrenciesUseCase_Factory;
 import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetExchangeRatesUseCase;
 import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetExchangeRatesUseCase_Factory;
-import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetSupportedCurrenciesUseCase;
-import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetSupportedCurrenciesUseCase_Factory;
 import io.github.amanshuraikwar.kryptonite.ui.MainActivity;
 import io.github.amanshuraikwar.kryptonite.ui.MainActivity_MembersInjector;
 import io.github.amanshuraikwar.kryptonite.ui.MainViewModel;
@@ -110,7 +110,7 @@ public final class DaggerAppComponent implements AppComponent {
   }
 
   private final class MainActivitySubcomponentImpl implements ActivityBindingModule_A$app_debug.MainActivitySubcomponent {
-    private Provider<GetSupportedCurrenciesUseCase> getSupportedCurrenciesUseCaseProvider;
+    private Provider<GetAvailableCurrenciesUseCase> getAvailableCurrenciesUseCaseProvider;
 
     private Provider<GetExchangeRatesUseCase> getExchangeRatesUseCaseProvider;
 
@@ -130,9 +130,9 @@ public final class DaggerAppComponent implements AppComponent {
 
     @SuppressWarnings("unchecked")
     private void initialize(final MainActivity arg0) {
-      this.getSupportedCurrenciesUseCaseProvider = GetSupportedCurrenciesUseCase_Factory.create(DaggerAppComponent.this.providesCurrencyRepositoryProvider);
+      this.getAvailableCurrenciesUseCaseProvider = GetAvailableCurrenciesUseCase_Factory.create(DaggerAppComponent.this.providesCurrencyRepositoryProvider);
       this.getExchangeRatesUseCaseProvider = GetExchangeRatesUseCase_Factory.create(DaggerAppComponent.this.providesCurrencyRepositoryProvider);
-      this.mainViewModelProvider = MainViewModel_Factory.create(getSupportedCurrenciesUseCaseProvider, getExchangeRatesUseCaseProvider);
+      this.mainViewModelProvider = MainViewModel_Factory.create(getAvailableCurrenciesUseCaseProvider, getExchangeRatesUseCaseProvider);
     }
 
     @Override

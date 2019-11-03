@@ -3,7 +3,8 @@ package io.github.amanshuraikwar.kryptonite.data
 import io.github.amanshuraikwar.kryptonite.FakeApi
 import io.github.amanshuraikwar.kryptonite.EmptyDatabase
 import io.github.amanshuraikwar.kryptonite.DbWithAvailableCurrencies
-import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetSupportedCurrenciesUseCase
+import io.github.amanshuraikwar.kryptonite.data.domain.Currency
+import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetAvailableCurrenciesUseCase
 import io.github.amanshuraikwar.kryptonite.data.domain.result.succeeded
 import io.github.amanshuraikwar.kryptonite.data.domain.result.successOr
 import org.junit.Assert.assertEquals
@@ -15,7 +16,7 @@ class GetSupportedCurrenciesUseCaseTest {
     @Test
     fun emptyDbTest() {
 
-        val userCase = GetSupportedCurrenciesUseCase(
+        val userCase = GetAvailableCurrenciesUseCase(
             CurrencyRepositoryImpl(
                 FakeApi(),
                 EmptyDatabase()
@@ -30,6 +31,7 @@ class GetSupportedCurrenciesUseCaseTest {
 
         assertEquals(
             listOf(
+                Currency("SSP", "South Sudanese pound"),
                 Currency("AED", "United Arab Emirates Dirham"),
                 Currency("AFN", "Afghan Afghani")
             ),
@@ -40,7 +42,7 @@ class GetSupportedCurrenciesUseCaseTest {
     @Test
     fun nonEmptyDbTest() {
 
-        val userCase = GetSupportedCurrenciesUseCase(
+        val userCase = GetAvailableCurrenciesUseCase(
             CurrencyRepositoryImpl(
                 FakeApi(),
                 DbWithAvailableCurrencies()

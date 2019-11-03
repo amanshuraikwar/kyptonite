@@ -3,6 +3,7 @@ package io.github.amanshuraikwar.kryptonite.data
 import io.github.amanshuraikwar.kryptonite.FakeApi
 import io.github.amanshuraikwar.kryptonite.DbWithAvailableCurrencies
 import io.github.amanshuraikwar.kryptonite.DbWithAvailableCurrenciesAndExchangeRates
+import io.github.amanshuraikwar.kryptonite.data.domain.CurrencyExchange
 import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetExchangeRatesUseCase
 import io.github.amanshuraikwar.kryptonite.data.domain.result.successOr
 import org.junit.Assert.assertEquals

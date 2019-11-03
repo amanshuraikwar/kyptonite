@@ -4,6 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.threeten.bp.OffsetDateTime
 
+/**
+ * Store exchange rates locally.
+ */
 @Entity(tableName = "ExchangeRate")
 class ExchangeRateEntity(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,

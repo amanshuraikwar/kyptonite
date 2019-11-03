@@ -2,8 +2,8 @@
 package io.github.amanshuraikwar.kryptonite.ui;
 
 import dagger.internal.Factory;
+import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetAvailableCurrenciesUseCase;
 import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetExchangeRatesUseCase;
-import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetSupportedCurrenciesUseCase;
 import javax.inject.Provider;
 
 @SuppressWarnings({
@@ -11,31 +11,31 @@ import javax.inject.Provider;
     "rawtypes"
 })
 public final class MainViewModel_Factory implements Factory<MainViewModel> {
-  private final Provider<GetSupportedCurrenciesUseCase> getSupportedCurrenciesUseCaseProvider;
+  private final Provider<GetAvailableCurrenciesUseCase> getAvailableCurrenciesUseCaseProvider;
 
   private final Provider<GetExchangeRatesUseCase> getExchangeRatesUseCaseProvider;
 
   public MainViewModel_Factory(
-      Provider<GetSupportedCurrenciesUseCase> getSupportedCurrenciesUseCaseProvider,
+      Provider<GetAvailableCurrenciesUseCase> getAvailableCurrenciesUseCaseProvider,
       Provider<GetExchangeRatesUseCase> getExchangeRatesUseCaseProvider) {
-    this.getSupportedCurrenciesUseCaseProvider = getSupportedCurrenciesUseCaseProvider;
+    this.getAvailableCurrenciesUseCaseProvider = getAvailableCurrenciesUseCaseProvider;
     this.getExchangeRatesUseCaseProvider = getExchangeRatesUseCaseProvider;
   }
 
   @Override
   public MainViewModel get() {
-    return new MainViewModel(getSupportedCurrenciesUseCaseProvider.get(), getExchangeRatesUseCaseProvider.get());
+    return new MainViewModel(getAvailableCurrenciesUseCaseProvider.get(), getExchangeRatesUseCaseProvider.get());
   }
 
   public static MainViewModel_Factory create(
-      Provider<GetSupportedCurrenciesUseCase> getSupportedCurrenciesUseCaseProvider,
+      Provider<GetAvailableCurrenciesUseCase> getAvailableCurrenciesUseCaseProvider,
       Provider<GetExchangeRatesUseCase> getExchangeRatesUseCaseProvider) {
-    return new MainViewModel_Factory(getSupportedCurrenciesUseCaseProvider, getExchangeRatesUseCaseProvider);
+    return new MainViewModel_Factory(getAvailableCurrenciesUseCaseProvider, getExchangeRatesUseCaseProvider);
   }
 
   public static MainViewModel newInstance(
-      GetSupportedCurrenciesUseCase getSupportedCurrenciesUseCase,
+      GetAvailableCurrenciesUseCase getAvailableCurrenciesUseCase,
       GetExchangeRatesUseCase getExchangeRatesUseCase) {
-    return new MainViewModel(getSupportedCurrenciesUseCase, getExchangeRatesUseCase);
+    return new MainViewModel(getAvailableCurrenciesUseCase, getExchangeRatesUseCase);
   }
 }

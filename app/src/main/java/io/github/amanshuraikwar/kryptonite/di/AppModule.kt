@@ -14,10 +14,4 @@ class AppModule {
         return application.applicationContext
     }
 
-    /*
-    @Singleton
-    @Provides
-    fun providesAppDatabase(context: Context): AppDatabase = AppDatabase.buildDatabase(context)
-
-     */
 }

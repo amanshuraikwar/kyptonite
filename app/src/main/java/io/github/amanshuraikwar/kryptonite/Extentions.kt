@@ -7,8 +7,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.JsonObject
+import io.github.amanshuraikwar.kryptonite.data.*
+import io.github.amanshuraikwar.kryptonite.data.db.ExchangeRateEntity
+import io.github.amanshuraikwar.kryptonite.data.domain.BaseApiResponse
+import io.github.amanshuraikwar.kryptonite.data.domain.Currency
+import io.github.amanshuraikwar.kryptonite.data.domain.CurrencyExchange
+import io.github.amanshuraikwar.kryptonite.data.domain.Exchange
 import io.github.amanshuraikwar.kryptonite.data.domain.result.Event
 import io.github.amanshuraikwar.kryptonite.data.domain.result.Result
+import retrofit2.Response
 import java.lang.Exception
 
 /**
@@ -89,4 +97,64 @@ fun <X, Y, Z> combine(l1: LiveData<X>,
         m.value = c2.invoke(it)
     }
     return m
+}
+
+inline fun <T : BaseApiResponse, reified D> Response<T>.data(map: (T) -> D): D {
+    if (this.isSuccessful) {
+        this.body()?.let {
+            if (it.success) {
+                return map.invoke(it)
+            } else {
+                throw ApiException(
+                    it.error?.code ?: 333, it.error?.info ?: "Something went wrong!"
+                )
+            }
+        } ?: throw ApiException()
+    } else {
+        throw ApiException()
+    }
+}
+
+fun JsonObject.asCurrencyList(): List<Currency> {
+    return this.entrySet().map {
+        Currency(
+            it.key,
+            it.value.asString
+        )
+    }
+}
+
+fun JsonObject.asExchangeList(): List<Exchange> {
+    return this.entrySet().map {
+        Exchange(
+            it.key.substring(0..2),
+            it.key.substring(3..5),
+            it.value.asFloat
+        )
+    }
+}
+
+fun CurrencyExchange.convert(newSource:String, mapper: (Float) -> Float): CurrencyExchange {
+    return CurrencyExchange(
+        this.code,
+        this.name,
+        newSource,
+        mapper.invoke(this.exchangeRate),
+        this.lastUpdated
+    )
+}
+
+fun ExchangeRateEntity.asCurrencyExchange(
+    currencyCodeNameMap: Map<String, String>
+): CurrencyExchange {
+    return CurrencyExchange(
+        currencyCode,
+        currencyCodeNameMap[currencyCode]
+            ?: throw InvalidDbStateException(
+                "Invalid currency $currencyCode not supported."
+            ),
+        sourceCurrencyCode,
+        exchangeRate,
+        lastUpdated
+    )
 }

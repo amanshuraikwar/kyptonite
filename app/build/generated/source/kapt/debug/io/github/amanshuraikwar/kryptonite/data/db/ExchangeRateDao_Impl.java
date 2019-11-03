@@ -5,6 +5,7 @@ import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
+import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
@@ -23,6 +24,8 @@ public final class ExchangeRateDao_Impl implements ExchangeRateDao {
   private final EntityInsertionAdapter __insertionAdapterOfExchangeRateEntity;
 
   private final EntityDeletionOrUpdateAdapter __deletionAdapterOfExchangeRateEntity;
+
+  private final SharedSQLiteStatement __preparedStmtOfDeleteAllFor;
 
   public ExchangeRateDao_Impl(RoomDatabase __db) {
     this.__db = __db;
@@ -74,6 +77,13 @@ public final class ExchangeRateDao_Impl implements ExchangeRateDao {
         }
       }
     };
+    this.__preparedStmtOfDeleteAllFor = new SharedSQLiteStatement(__db) {
+      @Override
+      public String createQuery() {
+        final String _query = "DELETE FROM ExchangeRate WHERE sourceCurrencyCode = ?";
+        return _query;
+      }
+    };
   }
 
   @Override
@@ -109,6 +119,26 @@ public final class ExchangeRateDao_Impl implements ExchangeRateDao {
       __db.setTransactionSuccessful();
     } finally {
       __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void deleteAllFor(final String source) {
+    __db.assertNotSuspendingTransaction();
+    final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteAllFor.acquire();
+    int _argIndex = 1;
+    if (source == null) {
+      _stmt.bindNull(_argIndex);
+    } else {
+      _stmt.bindString(_argIndex, source);
+    }
+    __db.beginTransaction();
+    try {
+      _stmt.executeUpdateDelete();
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+      __preparedStmtOfDeleteAllFor.release(_stmt);
     }
   }
 

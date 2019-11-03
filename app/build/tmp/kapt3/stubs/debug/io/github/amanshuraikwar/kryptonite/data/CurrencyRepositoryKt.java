@@ -2,18 +2,11 @@ package io.github.amanshuraikwar.kryptonite.data;
 
 import java.lang.System;
 
-@kotlin.Metadata(mv = {1, 1, 16}, bv = {1, 0, 3}, k = 2, d1 = {"\u0000*\n\u0000\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\u001a\u0010\u0010\u0000\u001a\b\u0012\u0004\u0012\u00020\u00020\u0001*\u00020\u0003\u001a\u0010\u0010\u0004\u001a\b\u0012\u0004\u0012\u00020\u00050\u0001*\u00020\u0003\u001a>\u0010\u0006\u001a\u0002H\u0007\"\b\b\u0000\u0010\b*\u00020\t\"\u0006\b\u0001\u0010\u0007\u0018\u0001*\b\u0012\u0004\u0012\u0002H\b0\n2\u0012\u0010\u000b\u001a\u000e\u0012\u0004\u0012\u0002H\b\u0012\u0004\u0012\u0002H\u00070\fH\u0086\b\u00a2\u0006\u0002\u0010\r\u00a8\u0006\u000e"}, d2 = {"asCurrencyList", "", "Lio/github/amanshuraikwar/kryptonite/data/Currency;", "Lcom/google/gson/JsonObject;", "asExchangeList", "Lio/github/amanshuraikwar/kryptonite/data/Exchange;", "data", "D", "T", "Lio/github/amanshuraikwar/kryptonite/data/BaseApiResponse;", "Lretrofit2/Response;", "map", "Lkotlin/Function1;", "(Lretrofit2/Response;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;", "app_debug"})
+@kotlin.Metadata(mv = {1, 1, 16}, bv = {1, 0, 3}, k = 2, d1 = {"\u0000(\n\u0000\n\u0002\u0010\b\n\u0000\n\u0002\u0010$\n\u0002\u0010\u000e\n\u0002\u0010\u0007\n\u0000\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\"\n\u0002\b\u0002\"\u000e\u0010\u0000\u001a\u00020\u0001X\u0082T\u00a2\u0006\u0002\n\u0000\"\u001a\u0010\u0002\u001a\u000e\u0012\u0004\u0012\u00020\u0004\u0012\u0004\u0012\u00020\u00050\u0003X\u0082\u0004\u00a2\u0006\u0002\n\u0000\"\u0014\u0010\u0006\u001a\b\u0012\u0004\u0012\u00020\b0\u0007X\u0082\u0004\u00a2\u0006\u0002\n\u0000\"\u0014\u0010\t\u001a\b\u0012\u0004\u0012\u00020\u00040\nX\u0082\u0004\u00a2\u0006\u0002\n\u0000\"\u000e\u0010\u000b\u001a\u00020\u0004X\u0082T\u00a2\u0006\u0002\n\u0000\u00a8\u0006\f"}, d2 = {"EXCHANGE_RATE_EXPIRY_TIME", "", "LOCAL_ONLY_EXCHANGE_RATES", "", "", "", "LOCAL_ONLY_SUPPORTED_CURRENCIES", "", "Lio/github/amanshuraikwar/kryptonite/data/domain/Currency;", "LOCAL_ONLY_SUPPORTED_CURRENCY_CODES", "", "MEDIATOR_CURRENCY", "app_debug"})
 public final class CurrencyRepositoryKt {
-    
-    @org.jetbrains.annotations.NotNull()
-    public static final java.util.List<io.github.amanshuraikwar.kryptonite.data.Currency> asCurrencyList(@org.jetbrains.annotations.NotNull()
-    com.google.gson.JsonObject $this$asCurrencyList) {
-        return null;
-    }
-    
-    @org.jetbrains.annotations.NotNull()
-    public static final java.util.List<io.github.amanshuraikwar.kryptonite.data.Exchange> asExchangeList(@org.jetbrains.annotations.NotNull()
-    com.google.gson.JsonObject $this$asExchangeList) {
-        return null;
-    }
+    private static final java.util.Set<java.lang.String> LOCAL_ONLY_SUPPORTED_CURRENCY_CODES = null;
+    private static final java.util.List<io.github.amanshuraikwar.kryptonite.data.domain.Currency> LOCAL_ONLY_SUPPORTED_CURRENCIES = null;
+    private static final java.util.Map<java.lang.String, java.lang.Float> LOCAL_ONLY_EXCHANGE_RATES = null;
+    private static final int EXCHANGE_RATE_EXPIRY_TIME = 30;
+    private static final java.lang.String MEDIATOR_CURRENCY = "USD";
 }

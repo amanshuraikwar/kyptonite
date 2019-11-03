@@ -19,4 +19,7 @@ interface ExchangeRateDao {
 
     @Delete
     fun deleteAll(exchangeRateEntities: List<ExchangeRateEntity>)
+
+    @Query("DELETE FROM ExchangeRate WHERE sourceCurrencyCode = :source")
+    fun deleteAllFor(source: String)
 }
