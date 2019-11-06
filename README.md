@@ -36,6 +36,10 @@ AppDatabase \| CurrencyApi |
 * Add `currency_layer_access_key=` in local.properties file.
 * Run the App.
 
+### Download APK
+
+<a href="https://raw.githubusercontent.com/amanshuraikwar/kyptonite/master/app/build/outputs/apk/debug/app-debug.apk" download>Click to Download</a>
+
 ### Screenshots
 
 <img src="https://github.com/amanshuraikwar/kyptonite/blob/master/assets/1.png" width="200" align="left" />
