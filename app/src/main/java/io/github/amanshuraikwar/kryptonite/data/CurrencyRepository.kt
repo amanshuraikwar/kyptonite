@@ -91,14 +91,10 @@ class CurrencyRepositoryImpl @Inject constructor(
         // fetch available currencies
         // throw exception if none available
 
-        val localAvailableCurrencies = availableCurrencyDao.getAll()
-
-        if (localAvailableCurrencies.isEmpty()) {
-            throw InvalidDbStateException("Local available currencies is empty.")
-        }
+        val availableCurrencies = getAvailableCurrencies()
 
         val currencyCodeNameMap =
-            localAvailableCurrencies.groupBy { it.code }.mapValues { it.value[0].name }
+            availableCurrencies.groupBy { it.code }.mapValues { it.value[0].name }
 
         // check if currency is available
 
@@ -128,40 +124,67 @@ class CurrencyRepositoryImpl @Inject constructor(
 
         } else {
 
-            val localExchangeRates = exchangeRateDao.getFor(source)
-            val curDateTime = OffsetDateTime.now()
+            // if source is not mediator currency
+            // fetch for mediator currency and convert accordingly
 
-            // check if exchange rates are available locally
+            if (source != MEDIATOR_CURRENCY) {
 
-            if (localExchangeRates.isEmpty()) {
+                val mediatorExchangeRates =
+                    getExchangeRates(MEDIATOR_CURRENCY)
 
-                return fetchAndStoreExchangeRates(source, curDateTime)
-                    .map {
-                        it.asCurrencyExchange(currencyCodeNameMap)
-                    }
+                val mediatorToSourceExchangeRate =
+                    mediatorExchangeRates.find { it.code == source }?.exchangeRate
+                        ?: throw InvalidDbStateException(
+                            "Currency $source does not have a exchange rate with $MEDIATOR_CURRENCY"
+                        )
+
+                // 1 * USD = X * SOURCE
+                // for each:
+                // replace 1 * USD to X * SOURCE
+                //  X * SOURCE = ANY_CURRENCY
+                //  1 * SOURCE = ANY_CURRENCY / X
+
+                return mediatorExchangeRates.map {
+                    it.convert(source) { rate -> rate / mediatorToSourceExchangeRate }
+                }
 
             } else {
 
-                // check if the local exchange rates are within the expiry time
+                val localExchangeRates = exchangeRateDao.getFor(source)
+                val curDateTime = OffsetDateTime.now()
 
-                val minutesDiff =
-                    localExchangeRates[0]
-                        .lastUpdated
-                        .until(curDateTime, ChronoUnit.MINUTES)
+                // check if exchange rates are available locally
 
-                return if (minutesDiff > EXCHANGE_RATE_EXPIRY_TIME) {
+                if (localExchangeRates.isEmpty()) {
 
-                    // delete older exchange rates
-                    exchangeRateDao.deleteAll(localExchangeRates)
-
-                    fetchAndStoreExchangeRates(source, curDateTime)
+                    return fetchAndStoreExchangeRates(source, curDateTime)
                         .map {
                             it.asCurrencyExchange(currencyCodeNameMap)
                         }
 
                 } else {
-                    localExchangeRates.map {
-                        it.asCurrencyExchange(currencyCodeNameMap)
+
+                    // check if the local exchange rates are within the expiry time
+
+                    val minutesDiff =
+                        localExchangeRates[0]
+                            .lastUpdated
+                            .until(curDateTime, ChronoUnit.MINUTES)
+
+                    return if (minutesDiff > EXCHANGE_RATE_EXPIRY_TIME) {
+
+                        // delete older exchange rates
+                        exchangeRateDao.deleteAll(localExchangeRates)
+
+                        fetchAndStoreExchangeRates(source, curDateTime)
+                            .map {
+                                it.asCurrencyExchange(currencyCodeNameMap)
+                            }
+
+                    } else {
+                        localExchangeRates.map {
+                            it.asCurrencyExchange(currencyCodeNameMap)
+                        }
                     }
                 }
             }
@@ -169,7 +192,8 @@ class CurrencyRepositoryImpl @Inject constructor(
     }
 
     /**
-     * Fetches exchange rated from remote and stores them locally while returning the same.
+     * Fetches exchange rated from remote
+     * and stores them locally while returning the same.
      */
     private fun fetchAndStoreExchangeRates(
         source: String,
@@ -193,6 +217,18 @@ class CurrencyRepositoryImpl @Inject constructor(
                 }
 
         exchangeRateDao.insertAll(fetchedExchangeRates)
+
+        // store conversion with self
+        // for unavailable currency conversions
+
+        exchangeRateDao.insert(
+            ExchangeRateEntity(
+                sourceCurrencyCode = source,
+                currencyCode = source,
+                exchangeRate = 1f,
+                lastUpdated = curDateTime
+            )
+        )
 
         return fetchedExchangeRates
     }

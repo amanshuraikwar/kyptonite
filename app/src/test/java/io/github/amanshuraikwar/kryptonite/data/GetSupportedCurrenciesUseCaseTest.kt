@@ -3,6 +3,7 @@ package io.github.amanshuraikwar.kryptonite.data
 import io.github.amanshuraikwar.kryptonite.FakeApi
 import io.github.amanshuraikwar.kryptonite.EmptyDatabase
 import io.github.amanshuraikwar.kryptonite.DbWithAvailableCurrencies
+import io.github.amanshuraikwar.kryptonite.data.db.AvailableCurrencyEntity
 import io.github.amanshuraikwar.kryptonite.data.domain.Currency
 import io.github.amanshuraikwar.kryptonite.data.domain.currency.GetAvailableCurrenciesUseCase
 import io.github.amanshuraikwar.kryptonite.data.domain.result.succeeded
@@ -14,7 +15,7 @@ import org.junit.Test
 class GetSupportedCurrenciesUseCaseTest {
 
     @Test
-    fun emptyDbTest() {
+    fun emptyDb_fetchedFromApi_Test() {
 
         val userCase = GetAvailableCurrenciesUseCase(
             CurrencyRepositoryImpl(
@@ -33,14 +34,15 @@ class GetSupportedCurrenciesUseCaseTest {
             listOf(
                 Currency("SSP", "South Sudanese pound"),
                 Currency("AED", "United Arab Emirates Dirham"),
-                Currency("AFN", "Afghan Afghani")
+                Currency("AFN", "Afghan Afghani"),
+                Currency("USD", "United States Dollar")
             ),
             result.successOr(null)
         )
     }
 
     @Test
-    fun nonEmptyDbTest() {
+    fun nonEmptyDb_fetchedFromDb_Test() {
 
         val userCase = GetAvailableCurrenciesUseCase(
             CurrencyRepositoryImpl(
@@ -57,8 +59,10 @@ class GetSupportedCurrenciesUseCaseTest {
 
         assertEquals(
             listOf(
-                Currency("ALL", "Albanian Lek"),
-                Currency("AMD", "Armenian Dram")
+                Currency("SSP", "South Sudanese pound DB"),
+                Currency("AED", "United Arab Emirates Dirham DB"),
+                Currency("AFN", "Afghan Afghani DB"),
+                Currency("USD", "United States Dollar DB")
             ),
             result.successOr(null)
         )

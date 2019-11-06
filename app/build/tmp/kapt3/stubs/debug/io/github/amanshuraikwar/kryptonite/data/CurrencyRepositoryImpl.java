@@ -22,7 +22,8 @@ public final class CurrencyRepositoryImpl implements io.github.amanshuraikwar.kr
     }
     
     /**
-     * Fetches exchange rated from remote and stores them locally while returning the same.
+     * Fetches exchange rated from remote
+     * and stores them locally while returning the same.
      */
     private final java.util.List<io.github.amanshuraikwar.kryptonite.data.db.ExchangeRateEntity> fetchAndStoreExchangeRates(java.lang.String source, org.threeten.bp.OffsetDateTime curDateTime) {
         return null;

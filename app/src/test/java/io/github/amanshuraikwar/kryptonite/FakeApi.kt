@@ -22,7 +22,8 @@ class FakeApi : CurrencyLayerApi {
                 JsonParser().parse(
                     "{\n" +
                             "        \"AED\": \"United Arab Emirates Dirham\",\n" +
-                            "        \"AFN\": \"Afghan Afghani\"\n" +
+                            "        \"AFN\": \"Afghan Afghani\",\n" +
+                            "        \"USD\": \"United States Dollar\"\n" +
                             "}"
                 ).asJsonObject
             )
@@ -41,8 +42,8 @@ class FakeApi : CurrencyLayerApi {
                 source,
                 JsonParser().parse(
                     "{\n" +
-                            "        \"USDALL\": 3.672982,\n" +
-                            "        \"USDAMD\": 57.8936\n" +
+                            "        \"USDAED\": 2.4,\n" +
+                            "        \"USDAFN\": 3.6\n" +
                             "    }"
                 ).asJsonObject
             )

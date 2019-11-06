@@ -33,14 +33,14 @@ class FakeExchangeRateDao(
             ExchangeRateEntity(
                 0,
                 "USD",
-                "ALL",
+                "AED",
                 4.23f,
                 now
             ),
             ExchangeRateEntity(
                 0,
                 "USD",
-                "AMD",
+                "AFN",
                 5.2398f,
                 now
             )
