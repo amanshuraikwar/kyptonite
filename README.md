@@ -1,6 +1,8 @@
+<img src="https://github.com/amanshuraikwar/kyptonite/blob/master/assets/6.gif" width="200" align="right" />
+
 # Kyptonite
 
-This Android App fetches the Exchange Rates between different currencies using https://currencylayer.com/documentation.
+This Android App fetches the Exchange Rates between different currencies using https://currencylayer.com/documentation. 
 
 ### Key features
 
@@ -36,3 +38,10 @@ AppDatabase \| CurrencyApi |
 
 ### Screenshots
 
+<img src="https://github.com/amanshuraikwar/kyptonite/blob/master/assets/1.png" width="200" align="left" />
+
+<img src="https://github.com/amanshuraikwar/kyptonite/blob/master/assets/2.png" width="200" align="left" />
+
+<img src="https://github.com/amanshuraikwar/kyptonite/blob/master/assets/4.png" width="200" align="left"/>
+
+<img src="https://github.com/amanshuraikwar/kyptonite/blob/master/assets/3.png" width="400" align="left" />
